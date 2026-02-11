@@ -21,17 +21,6 @@ public class InterfaceLauncher extends JFrame implements Runnable {
         panel = new ArenaPanel(arena, largeur, hauteur); 
         panel.setPreferredSize(new Dimension(largeur, hauteur));
 
-        panel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) { 
-                    double x = (double) e.getX() / panel.getWidth();
-                    double y = (double) e.getY() / panel.getHeight();
-                    arena.getPlayer().moveTo(x, y);
-                }
-            }
-        });
-
         setTitle("MOBA");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
@@ -40,6 +29,7 @@ public class InterfaceLauncher extends JFrame implements Runnable {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setVisible(true);
+
         new Thread(this).start();
     }
 
