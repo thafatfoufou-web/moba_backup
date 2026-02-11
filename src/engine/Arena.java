@@ -8,6 +8,7 @@ public class Arena {
     private List<Lane> lanes;
     private Player player;
     private List<Bot> bots;
+    private List<Bot> enemyBots;
     private Fountain playerFountain;
 
     public Arena() {
@@ -19,10 +20,19 @@ public class Arena {
         player = new Player(0.1, 0.9);
         
         bots = new ArrayList<>();
-        bots.add(new Bot(0.15, 0.87, 0.45, 0.6, Color.RED, "Bot1"));
-        bots.add(new Bot(0.22, 0.97,  0.9, 0.95,Color.ORANGE, "Bot2"));
-        bots.add(new Bot(0.02, 0.85, 0.02, 0.20, Color.YELLOW, "Bot3"));
-        bots.add(new Bot(0.05, 0.85, 0.06, 0.15, Color.PINK, "Bot4"));
+        bots.add(new Bot(0.15, 0.87, 0.45, 0.6,new Color(0, 150, 255), "Bot1"));
+        bots.add(new Bot(0.22, 0.97,  0.9, 0.95,new Color(0, 150, 255), "Bot2"));
+        bots.add(new Bot(0.02, 0.85, 0.02, 0.20, new Color(0, 150, 255), "Bot3"));
+        bots.add(new Bot(0.05, 0.85, 0.06, 0.15,new Color(0, 150, 255), "Bot4"));
+
+        enemyBots = new ArrayList<>();
+        enemyBots.add(new Bot(0.85, 0.13,0.55, 0.4,new Color(255, 0, 150), "ENEMY_Bot1"));
+        enemyBots.add(new Bot(0.78, 0.1,0.10, 0.10, new Color(255, 0, 150), "ENEMY_Bot2"));
+        enemyBots.add(new Bot(0.98, 0.15,0.98, 0.80,new Color(255, 0, 150), "ENEMY_Bot3"));
+        enemyBots.add(new Bot(0.85, 0.20, 0.55, 0.5, new Color(255, 0, 150), "ENEMY_Bot4"));
+        enemyBots.add(new Bot(0.95, 0.15,0.94, 0.85, new Color(255, 0, 150), "ENEMY_Bot5"));
+
+
         playerFountain = new Fountain(0.05, 0.95);
     }
 
@@ -30,11 +40,17 @@ public class Arena {
         player.update( deltaTime );
 
         for (Bot bot : bots) {
-        bot.update();
+            bot.update();
+        }
+        for (Bot Ebot : enemyBots) {
+             Ebot.update();
+        }
+
+        playerFountain.update(deltaTime, player);
 
      }
-        playerFountain.update(deltaTime, player);
-    }
+
+    
     
 
     public void render(Graphics2D g2, int width, int height) {
@@ -59,9 +75,13 @@ public class Arena {
         for (double[] pos : positionsArbres) {
             g2.fillRect((int)(pos[0] * width), (int)(pos[1] * height), aW, aH);
         }
+
         playerFountain.render(g2, width, height);
         player.render(g2, width, height);
         for(Bot bot :bots){
+            bot.render(g2, width, height);
+        }
+        for (Bot bot : enemyBots) {
             bot.render(g2, width, height);
         }
     }

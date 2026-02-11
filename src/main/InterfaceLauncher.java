@@ -5,8 +5,6 @@ import view.ArenaPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class InterfaceLauncher extends JFrame implements Runnable {
     private Arena arena;
