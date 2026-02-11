@@ -25,7 +25,7 @@ public class InterfaceLauncher extends JFrame implements Runnable {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON3) { // right click
+                if (e.getButton() == MouseEvent.BUTTON1) { 
                     double x = (double) e.getX() / panel.getWidth();
                     double y = (double) e.getY() / panel.getHeight();
                     arena.getPlayer().moveTo(x, y);
@@ -41,8 +41,6 @@ public class InterfaceLauncher extends JFrame implements Runnable {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setVisible(true);
-
-    
         new Thread(this).start();
     }
 

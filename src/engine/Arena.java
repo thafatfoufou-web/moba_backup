@@ -7,6 +7,7 @@ import java.util.List;
 public class Arena {
     private List<Lane> lanes;
     private Player player;
+    private Fountain playerFountain;
 
     public Arena() {
         lanes = new ArrayList<>();
@@ -14,9 +15,11 @@ public class Arena {
         lanes.add(new Lane(Lane.Type.middle));
         lanes.add(new Lane(Lane.Type.bot));
         player = new Player(0.1, 0.9);
+        playerFountain = new Fountain(0.05, 0.95);
     }
     public void update(double deltaTime) {
         player.update( deltaTime );
+        playerFountain.update(deltaTime, player);
     }
 
     public void render(Graphics2D g2, int width, int height) {
@@ -24,13 +27,12 @@ public class Arena {
         g2.fillRect(0, 0, width, height);
 
         int lane_width = width / 12; 
-        
-
 
         for (Lane lane : lanes) {
             lane.render(g2, width, height, lane_width);
         }
         player.render(g2, width, height);
+        playerFountain.render(g2, width, height);
     }
         public Player getPlayer() {
         return player;
