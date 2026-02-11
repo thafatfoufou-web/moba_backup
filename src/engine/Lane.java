@@ -74,5 +74,10 @@ public class Lane {
         for (Tower t : towers) {
             t.render(g2, width, height);
         }
+        
     }
+    public Tower getLastAllyTower() {
+        return towers.get(2);
+    }
+
 }

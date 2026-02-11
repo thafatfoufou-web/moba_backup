@@ -61,9 +61,9 @@ public class Player {
         g2.setColor(Color.WHITE);
         g2.drawOval(px - size/2, py - size/2, size, size);
 
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
         g2.setFont(new Font("Arial", Font.BOLD, 12));
-        g2.drawString("Hero", px - 15, py - size/2 - 20);
+        g2.drawString("Hero", px - 15, py - size/2 - 10);
 
         //barre de vie
         g2.setColor(Color.GRAY);
