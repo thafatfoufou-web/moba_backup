@@ -15,8 +15,8 @@ public class Arena {
         lanes.add(new Lane(Lane.Type.bot));
         player = new Player(0.1, 0.9);
     }
-    public void update() {
-    player.update();
+    public void update(double deltaTime) {
+        player.update( deltaTime );
     }
 
     public void render(Graphics2D g2, int width, int height) {

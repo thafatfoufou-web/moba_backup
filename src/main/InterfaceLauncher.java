@@ -46,16 +46,24 @@ public class InterfaceLauncher extends JFrame implements Runnable {
         new Thread(this).start();
     }
 
+    
     @Override
     public void run() {
+        long lastTime = System.nanoTime();
+
         while (true) {
+            long currentTime = System.nanoTime();
+            double deltaTime = (currentTime - lastTime) / 1_000_000_000.0;
+            lastTime = currentTime;
+
+            arena.update(deltaTime);
+            panel.repaint();
+
             try {
-                Thread.sleep(16); 
+                Thread.sleep(10); 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            arena.update();
-            panel.repaint();
         }
     }
 
