@@ -24,7 +24,7 @@ public class InterfaceLauncher extends JFrame implements Runnable {
   
         panel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON3) { // right click
                     double x = (double) e.getX() / panel.getWidth();
                     double y = (double) e.getY() / panel.getHeight();
