@@ -19,36 +19,36 @@ public class Lane {
     private void initTowers() {
         switch (type) {
             case top:
-                towers.add(new Tower(0.04, 0.85, Color.BLUE)); 
-                towers.add(new Tower(0.04, 0.65, Color.BLUE)); 
-                towers.add(new Tower(0.04, 0.45, Color.BLUE)); 
-                towers.add(new Tower(0.15, 0.04, Color.RED)); 
-                towers.add(new Tower(0.35, 0.04, Color.RED));  
-                towers.add(new Tower(0.55, 0.04, Color.RED));  
+                towers.add(new Tower(0.04, 0.75, Color.BLUE)); 
+                towers.add(new Tower(0.04, 0.50, Color.BLUE)); 
+                towers.add(new Tower(0.04, 0.25, Color.BLUE)); 
+                towers.add(new Tower(0.25, 0.04, Color.RED)); 
+                towers.add(new Tower(0.50, 0.04, Color.RED));  
+                towers.add(new Tower(0.75, 0.04, Color.RED));  
                 break;
 
             case middle:
-                towers.add(new Tower(0.15, 0.85, Color.BLUE)); 
-                towers.add(new Tower(0.25, 0.75, Color.BLUE)); 
-                towers.add(new Tower(0.35, 0.65, Color.BLUE)); 
-                towers.add(new Tower(0.85, 0.15, Color.RED));  
-                towers.add(new Tower(0.75, 0.25, Color.RED));  
-                towers.add(new Tower(0.65, 0.35, Color.RED));  
+                towers.add(new Tower(0.20, 0.80, Color.BLUE)); 
+                towers.add(new Tower(0.30, 0.70, Color.BLUE)); 
+                towers.add(new Tower(0.40, 0.60, Color.BLUE)); 
+                towers.add(new Tower(0.60, 0.40, Color.RED));  
+                towers.add(new Tower(0.70, 0.30, Color.RED));  
+                towers.add(new Tower(0.80, 0.20, Color.RED));  
                 break;
 
             case bot:
-                towers.add(new Tower(0.15, 0.96, Color.BLUE)); 
-                towers.add(new Tower(0.35, 0.96, Color.BLUE)); 
-                towers.add(new Tower(0.55, 0.96, Color.BLUE)); 
-                towers.add(new Tower(0.96, 0.15, Color.RED));  
-                towers.add(new Tower(0.96, 0.35, Color.RED));  
+                towers.add(new Tower(0.25, 0.95, Color.BLUE)); 
+                towers.add(new Tower(0.55, 0.95, Color.BLUE)); 
+                towers.add(new Tower(0.85, 0.95, Color.BLUE)); 
+                towers.add(new Tower(0.96, 0.25, Color.RED));  
                 towers.add(new Tower(0.96, 0.55, Color.RED));  
+                towers.add(new Tower(0.96, 0.85, Color.RED));  
                 break;
         }
     }
 
     public void render(Graphics2D g2, int width, int height, int lane_width) {
-        g2.setColor(Color.WHITE); 
+         g2.setColor(new Color(200, 200, 200));  
         switch (this.type) {
             case top:
                 g2.fillRect(0, 0, width, lane_width);

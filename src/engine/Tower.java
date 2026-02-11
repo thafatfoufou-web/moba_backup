@@ -21,14 +21,18 @@ public class Tower {
         int size = width / 60;
 
         g2.setColor(teamColor);
-        g2.fillOval(x - size/2, y - size/2, size, size); 
+        g2.fillRect(x - size/2, y - size/2, size, size);
+
         g2.setColor(Color.BLACK);
-        g2.drawOval(x - size/2, y - size/2, size, size); 
+        g2.drawRect(x - size/2, y - size/2, size, size); 
         
         g2.setColor(Color.GREEN);
 
         int hpWidth = (int)((double)hp/maxHp * size);
         g2.fillRect(x - size/2, y - size - 5, hpWidth, 3);
+
+        g2.setColor(Color.BLACK);
+        g2.drawRect(x - size/2, y - size - 5, size, 3);
     }
     
 }
