@@ -7,7 +7,7 @@ public class Fountain {
     private double radius = 0.08; 
     private double healPerSecond = 20.0;
 
-    private int dmg=20;
+    private int dmg=2;
 
     public Fountain(double x, double y) {
         this.x = x;

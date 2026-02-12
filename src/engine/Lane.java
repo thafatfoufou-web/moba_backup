@@ -75,9 +75,33 @@ public class Lane {
             t.render(g2, width, height);
         }
         
+        
     }
-    public Tower getLastAllyTower() {
-        return towers.get(2);
+    public List<Tower> getAllyTowers() {
+        List<Tower> allies = new ArrayList<>();
+        for(Tower t: towers){
+            if(t.isAlly()){
+                allies.add(t);
+         }
+        }
+        return allies;
+    }
+
+
+        public List<Tower> getEnemyTowers() {
+        List<Tower> enemies = new ArrayList<>();
+        for(Tower t: towers){
+            if(t.isEnemy()){
+                enemies.add(t);
+         }
+        }
+        return enemies;
+    }
+
+
+
+    public Type getType() {
+        return type;
     }
 
 }

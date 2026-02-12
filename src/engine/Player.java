@@ -95,7 +95,7 @@ public class Player {
         }
     }
 
-    public void takeDamage(int dmg){
+    public void takeDamage(double dmg){
 
         if(hp<dmg){ this.hp=0;}
         else{

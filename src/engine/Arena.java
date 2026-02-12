@@ -52,6 +52,14 @@ public class Arena {
         playerFountain.update(deltaTime, player);
         Enemy_Fountain.update(deltaTime, player); /* place holder, will add a hero class later and update the function */
         Enemy_Fountain.attack(player);
+        
+        for (Lane lane : lanes) {
+            for (Tower t : lane.getEnemyTowers()) {
+                 t.attack(player);
+         }
+        }
+
+        
      }
 
     
