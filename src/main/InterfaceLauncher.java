@@ -1,7 +1,9 @@
 package main;
 
 import engine.Arena;
-import view.ArenaPanel; 
+import view.ArenaPanel;
+import view.GlobalAttr;
+
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -39,12 +41,12 @@ public class InterfaceLauncher extends JFrame implements Runnable {
             long currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1_000_000_000.0;
             lastTime = currentTime;
-
+            
             arena.update(deltaTime);
             panel.repaint();
 
             try {
-                Thread.sleep(10);
+                Thread.sleep(GlobalAttr.GAME_SPEED);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
