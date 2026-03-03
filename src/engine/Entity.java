@@ -61,7 +61,7 @@ public abstract class Entity {
         this.hp = maxHp;
         this.maxMana = maxMana;
         this.mana = maxMana;
-        this.setColor(color);
+        this.color = color;
     }
 
     public void heal(double amount) {

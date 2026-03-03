@@ -12,8 +12,8 @@ public class Fountain extends Entity {
     private double healPerSecond = 20.0;
     private int dmg = 2;
 
-    public Fountain(double x, double y) {
-        super(x, y, 100, 0, new Color(50, 200, 255));
+    public Fountain(double x, double y, Color color) {
+        super(x, y, 100, 0, color);
     }
 
     public void update(double deltaTime, Player player) {

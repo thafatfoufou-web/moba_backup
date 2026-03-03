@@ -38,8 +38,8 @@ public class Arena {
             new String[]{"ENEMY_Bot1", "ENEMY_Bot2", "ENEMY_Bot3", "ENEMY_Bot4", "ENEMY_Bot5"}
         );
 
-        playerFountain = new Fountain(0.05, 0.95);
-        enemyFountain = new Fountain(0.95, 0.05);
+        playerFountain = new Fountain(0.05, 0.95, new Color(50, 200, 255));
+        enemyFountain = new Fountain(0.95, 0.05, new Color(202, 94, 90));
     }
 
     private List<Bot> createBots(double[][] positions, Color color, String[] names) {
@@ -61,9 +61,6 @@ public class Arena {
              bot.update();
              bot.attack(player);
         }
-
-        playerFountain.setColor(new Color(50, 200, 255));
-        enemyFountain.setColor(new Color(202, 94, 90));
         playerFountain.update(deltaTime, player);
         enemyFountain.update(deltaTime, player);
         enemyFountain.attack(player);
