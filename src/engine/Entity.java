@@ -22,23 +22,6 @@ public abstract class Entity {
 	public void setMaxHp(double maxHp) {
 		this.maxHp = maxHp;
 	}
-
-	public double getMana() {
-		return mana;
-	}
-
-	public void setMana(double mana) {
-		this.mana = mana;
-	}
-
-	public double getMaxMana() {
-		return maxMana;
-	}
-
-	public void setMaxMana(double maxMana) {
-		this.maxMana = maxMana;
-	}
-
 	public void setX(double x) {
 		this.x = x;
 	}
@@ -50,18 +33,13 @@ public abstract class Entity {
 	private double x, y;
     private double hp;
     private double maxHp;
-    private double mana;
-    private double maxMana;
     private Color color;
 
-    public Entity(double x, double y, double maxHp, double maxMana, Color color) {
+    public Entity(double x, double y, double maxHp) {
         this.x = x;
         this.y = y;
         this.maxHp = maxHp;
         this.hp = maxHp;
-        this.maxMana = maxMana;
-        this.mana = maxMana;
-        this.color = color;
     }
 
     public void heal(double amount) {
@@ -101,12 +79,6 @@ public abstract class Entity {
         g2.drawRect(px - size/2, py - size - yOffset, size, 4);
     }
 
-    protected double getDistanceTo(Entity other) {
-        double dx = other.x - this.x;
-        double dy = other.y - this.y;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
-
     public abstract void render(Graphics2D g2, int width, int height);
 
 	public Color getColor() {
@@ -116,4 +88,10 @@ public abstract class Entity {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+
+    public double getDistanceTo(Entity other) {
+        double dx = this.x - other.x;
+        double dy = this.y - other.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 }

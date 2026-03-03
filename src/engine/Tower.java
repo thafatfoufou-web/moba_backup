@@ -8,9 +8,11 @@ import java.awt.*;
 public class Tower extends Entity {
     private double radius = 0.1;
     private double damage = 0.2;
+    private int team;
 
-    public Tower(double positionX, double positionY, Color teamColor) {
-        super(positionX, positionY, 100, 0, teamColor);
+    public Tower(double positionX, double positionY, int team) {
+        super(positionX, positionY, 100);
+        this.setTeam(team);
     }
 
     public void attack(Player player) {
@@ -27,6 +29,13 @@ public class Tower extends Entity {
         return getColor().equals(Color.RED);
     }
 
+    public void setTeam(int team){
+        this.team = team;
+    }
+
+    public int getTeam(){
+        return team;
+    }
     @Override
     public void render(Graphics2D g2, int width, int height) {
         int px = (int) (getX() * width);

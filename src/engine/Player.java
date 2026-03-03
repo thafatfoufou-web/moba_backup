@@ -11,7 +11,7 @@ public class Player extends Entity {
     private double speed = 0.2;
 
     public Player(double x, double y) {
-        super(x, y, 100, 100, Color.BLACK);
+        super(x, y, 100, 100);
     }
 
     public void update(double deltaTime) {
