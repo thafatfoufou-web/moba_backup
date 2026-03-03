@@ -6,8 +6,13 @@ import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+/**
+ * @author RAHARIMANANA Tianantenaina BOUKIRAT Thafat ZEGHBIB Sonia
+ */
+
 public class InterfaceLauncher extends JFrame implements Runnable {
-    private Arena arena;
+    private static final long serialVersionUID = 1L;
+	private Arena arena;
     private ArenaPanel panel; 
 
     public InterfaceLauncher() {
