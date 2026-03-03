@@ -21,7 +21,7 @@ public class Minion extends Entity {
     private int waypointIndex = 0;
 
     public Minion(double x, double y, int team, List<double[]> waypoints) {
-        super(x, y, GlobalAttr.MINION_MAX_HP, );
+        super(x, y, GlobalAttr.MINION_MAX_HP);
         this.speed     = 0.0008;
         this.team      = team;
         this.waypoints = waypoints;
@@ -47,17 +47,17 @@ public class Minion extends Entity {
     private Entity findTarget(List<Entity> enemies, Player player) {
         Entity closest = null;
         double closestDist = Double.MAX_VALUE;
-        for (Entity m : enemies) {
-            if (!m.active) continue;
-            double dist = distanceTo(m);
+        for (Entity e : enemies) {
+            if (!e.isActive()) continue;
+            double dist = getDistanceTo(e);
             if (dist < closestDist) {
                 closestDist = dist;
-                closest = m;
+                closest = e;
             }
         }
         //for player
         if (team == 1) {
-            double dist = distanceTo(player);
+            double dist = getDistanceTo(player);
             if (dist < closestDist) {
                 closest = player;
             }

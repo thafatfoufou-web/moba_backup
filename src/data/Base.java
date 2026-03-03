@@ -3,9 +3,10 @@ package data;
 import java.awt.*;
 import java.awt.Graphics2D;
 
+import engine.Entity;
 import view.GlobalAttr;
 
-public class Base extends Entite {
+public class Base extends Entity {
 
     Fountain fountain;
     int team; // 0 for ALLY, 1 for ENEMY
@@ -19,8 +20,8 @@ public class Base extends Entite {
     }
 
     @Override
-    public void attack(Entite target) {
-        double dist = distanceTo(target);
+    public void attack(Entity target) {
+        double dist = getDistanceTo(target);
         if (dist < radius) { 
             target.takeDamage(dmg);
         }

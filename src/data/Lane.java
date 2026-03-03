@@ -23,32 +23,6 @@ public class Lane {
     private void initTowers() {
         switch (type) {
             case top:
-<<<<<<< HEAD:src/engine/Lane.java
-                towers.add(new Tower(0.04, 0.75, Color.BLUE));
-                towers.add(new Tower(0.04, 0.50, Color.BLUE));
-                towers.add(new Tower(0.04, 0.25, Color.BLUE));
-                towers.add(new Tower(0.25, 0.04, Color.RED));
-                towers.add(new Tower(0.50, 0.04, Color.RED));
-                towers.add(new Tower(0.75, 0.04, Color.RED));
-                break;
-
-            case middle:
-                towers.add(new Tower(0.20, 0.80, Color.BLUE));
-                towers.add(new Tower(0.30, 0.70, Color.BLUE));
-                towers.add(new Tower(0.40, 0.60, Color.BLUE));
-                towers.add(new Tower(0.60, 0.40, Color.RED));
-                towers.add(new Tower(0.70, 0.30, Color.RED));
-                towers.add(new Tower(0.80, 0.20, Color.RED));
-                break;
-
-            case bot:
-                towers.add(new Tower(0.25, 0.95, Color.BLUE));
-                towers.add(new Tower(0.55, 0.95, Color.BLUE));
-                towers.add(new Tower(0.85, 0.95, Color.BLUE));
-                towers.add(new Tower(0.96, 0.25, Color.RED));
-                towers.add(new Tower(0.96, 0.55, Color.RED));
-                towers.add(new Tower(0.96, 0.85, Color.RED));
-=======
                 towers.add(new Tower(0.04, 0.75, 0)); 
                 towers.add(new Tower(0.04, 0.50, 0)); 
                 towers.add(new Tower(0.04, 0.25, 0)); 
@@ -73,7 +47,6 @@ public class Lane {
                 towers.add(new Tower(0.96, 0.25, 1));  
                 towers.add(new Tower(0.96, 0.55, 1));  
                 towers.add(new Tower(0.96, 0.85, 1));  
->>>>>>> Thafat2/main:src/data/Lane.java
                 break;
         }
     }
@@ -107,18 +80,6 @@ public class Lane {
        for (Tower tower : towers) {
             tower.render(g2, width, height);
         }
-<<<<<<< HEAD:src/engine/Lane.java
-
-    }
-    
-    public List<Tower> getAllyTowers() {
-        List<Tower> allies = new ArrayList<>();
-
-        for (Tower tower : towers) {
-            if (tower.isAlly()) {
-                allies.add(tower);
-            }
-=======
     }
 
     public List<Tower> getAllTowers() {
@@ -131,7 +92,6 @@ public class Lane {
             if(t.getTeam() == 0){
                 allies.add(t);
          }
->>>>>>> Thafat2/main:src/data/Lane.java
         }
 
         return allies;
@@ -140,18 +100,10 @@ public class Lane {
 
     public List<Tower> getEnemyTowers() {
         List<Tower> enemies = new ArrayList<>();
-<<<<<<< HEAD:src/engine/Lane.java
-
-        for (Tower tower : towers) {
-            if (tower.isEnemy()) {
-                enemies.add(tower);
-            }
-=======
         for(Tower t: towers){
             if(t.getTeam() == 1){
                 enemies.add(t);
          }
->>>>>>> Thafat2/main:src/data/Lane.java
         }
 
         return enemies;
@@ -161,9 +113,5 @@ public class Lane {
     public Type getType() {
         return type;
     }
-<<<<<<< HEAD:src/engine/Lane.java
-=======
     
-
->>>>>>> Thafat2/main:src/data/Lane.java
 }

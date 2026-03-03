@@ -2,9 +2,10 @@ package data;
 
 import java.awt.*;
 
+import engine.Entity;
 import view.GlobalAttr;
 
-public class Tower extends Entite {
+public class Tower extends Entity {
 
     private int team;
 
@@ -63,8 +64,8 @@ public class Tower extends Entite {
 }
 
     @Override
-    public void attack(Entite target) {
-        double dist = distanceTo(target);
+    public void attack(Entity target) {
+        double dist = getDistanceTo(target);
         if (dist < radius) { 
             target.takeDamage(dmg);
         }

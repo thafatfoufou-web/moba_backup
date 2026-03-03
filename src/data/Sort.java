@@ -19,5 +19,5 @@ public abstract class Sort {
     }
 
     
-    public abstract void execute(Entite caster, double targetX, double targetY, Arena arena);
+    public abstract void execute(Entity caster, double targetX, double targetY, Arena arena);
 }

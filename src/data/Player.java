@@ -3,6 +3,7 @@ package data;
 import java.awt.*;
 
 import engine.Arena;
+import engine.Entity;
 import view.GlobalAttr;
 
 public class Player extends Personnage{
@@ -10,13 +11,11 @@ public class Player extends Personnage{
     private boolean isMoving;
 
 
-    private double mana;
+    private double mana = GlobalAttr.PLAYER_MAX_MANA;
     private double MaxMana = GlobalAttr.PLAYER_MAX_MANA; 
  
     public Player(double x, double y) {
         super(x, y, GlobalAttr.PLAYER_MAX_HP, GlobalAttr.PLAYER_SPEED, 0);
-        this.hp = GlobalAttr.PLAYER_START_HP;
-        this.mana =GlobalAttr.PLAYER_START_MANA; 
     }
 
     public void update(double deltaTime,Arena arena) {
@@ -152,8 +151,8 @@ public class Player extends Personnage{
 }
 
     @Override
-    public void attack(Entite target) {
-        double dist = distanceTo(target);
+    public void attack(Entity target) {
+        double dist = getDistanceTo(target);
         if (dist < 0.05) { 
             target.takeDamage(100); // placeholder METHOD
         }

@@ -14,7 +14,7 @@ public class Fountain extends Entity {
     private double dmg= GlobalAttr.FOUNTAIN_DAMAGE;
 
     public Fountain(double x, double y) {
-        super(x, y, 100, 0);
+        super(x, y, 100);
     }
 
     public void update(double deltaTime, Player player) {
@@ -29,7 +29,7 @@ public class Fountain extends Entity {
         int py = (int) (getY() * height);
         int r = (int) (radius * width);
  
-        g2.setColor(lowerTransparency(this.getColor(), 60));
+        g2.setColor(lowerTransperacy(this.getColor(), 60));
         g2.fillOval(px - r, py - r, r * 2, r * 2);
 
         g2.setColor(this.getColor());
@@ -41,7 +41,7 @@ public class Fountain extends Entity {
         return (new Color(color.getRed(),color.getGreen(),color.getBlue(),trans) );
         }
 
-    public void attack(Entite target){  
+    public void attack(Entity target){  
         double dx = target.getX() - x;
         double dy = target.getY() - y;
         double dist = Math.sqrt(dx * dx + dy * dy);
