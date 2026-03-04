@@ -122,23 +122,14 @@ public class Player extends Personnage{
         }
     }
 
-    public void takeDamage(double dmg){
-        if(hp<dmg){ this.hp=0;}
-        else{
-            this.hp-= dmg;
-        }
 
-    }
-
-    public boolean isDead(){
-        return(this.hp==0);
-    }
 
     public void respawn() {
         hp = getMaxHp();
         mana = MaxMana;
         x = 0.1;
         y = 0.9;
+        active = true;
     }
 
     public double getX() { return x; }

@@ -37,6 +37,7 @@ public abstract class Personnage extends Entity {
     public int getTeam() {
         return team;
     }
+    public abstract void respawn();
 
     public abstract void render(Graphics2D g2, int width, int height);
 

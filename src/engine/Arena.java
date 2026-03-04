@@ -16,8 +16,9 @@ import view.GlobalAttr;
 public class Arena {
     private List<Lane> lanes;
     private Player player;
-    private List<Bot> bots;
-    private List<Bot> enemyBots;
+    /*private List<Bot> bots;
+    private List<Bot> enemyBots;*/
+    private BotManager botManager;
     private Fountain playerFountain;
     private Fountain Enemy_Fountain ;
     private Camera camera;
@@ -30,9 +31,11 @@ public class Arena {
         lanes.add(new Lane(Lane.Type.bot));
 
         player = new Player(0.1, 0.9);
+
+        botManager = new BotManager();
         
-        bots = new ArrayList<>();
-        bots.add(new Bot(0.15, 0.87, 0.45, 0.6,0, "Bot1"));
+        /*bots = new ArrayList<>();
+        /*bots.add(new Bot(0.15, 0.87, 0.45, 0.6,0, "Bot1"));
         bots.add(new Bot(0.22, 0.97,  0.9, 0.95,0, "Bot2"));
         bots.add(new Bot(0.02, 0.85, 0.02, 0.20, 0, "Bot3"));
         bots.add(new Bot(0.05, 0.85, 0.06, 0.15,0, "Bot4"));
@@ -42,7 +45,7 @@ public class Arena {
         enemyBots.add(new Bot(0.78, 0.1,0.10, 0.10, 1, "ENEMY_Bot2"));
         enemyBots.add(new Bot(0.98, 0.15,0.98, 0.80,1, "ENEMY_Bot3"));
         enemyBots.add(new Bot(0.85, 0.20, 0.55, 0.5, 1, "ENEMY_Bot4"));
-        enemyBots.add(new Bot(0.95, 0.15,0.94, 0.85, 1, "ENEMY_Bot5"));
+        enemyBots.add(new Bot(0.95, 0.15,0.94, 0.85, 1, "ENEMY_Bot5"));*/
 
         playerFountain = new Fountain(0.05, 0.95,0);
         Enemy_Fountain = new Fountain(0.95, 0.05,1);
@@ -57,11 +60,12 @@ public class Arena {
 
    public void update(double deltaTime) {
     //player
-    player.update(deltaTime, this);
-    if (player.isDead()) { player.respawn(); }
+     player.update(deltaTime, this);
+     if (!player.isActive()) { player.respawn(); }
 
-    //bots
-    for (Bot bot : bots) {
+     //bots
+     botManager.update(deltaTime, getEnemiesForTeam(0), getEnemiesForTeam(1));
+     /*  for (Bot bot : bots) {
          bot.update();
         List<Entity> targets = getEnemiesForTeam(bot.getTeam());
         Entity closest = null;
@@ -83,7 +87,7 @@ public class Arena {
             if (d < closestDist) { closestDist = d; closest = e; }
         }
         if (closest != null) ebot.attack(closest);
-    }
+    }*/
 
     //fountain
     playerFountain.update(deltaTime, player);
@@ -92,8 +96,10 @@ public class Arena {
 
     //towers
     for (Lane lane : lanes) {
-        for (Tower t : lane.getEnemyTowers()) { t.attack(player); }
+        for (Tower t : lane.getEnemyTowers()) {
+            if (t.isActive()) t.attack(player);
     }
+}
 
     //minions
     minionSpawner.update(deltaTime, player);
@@ -147,8 +153,9 @@ public void render(Graphics2D g2, int width, int height, boolean withBorder) {
     Enemy_Fountain.render(g2, drawW, drawH);
 
     player.render(g2, drawW, drawH);
-    for (Bot bot : bots)      { bot.render(g2, drawW, drawH); }
-    for (Bot bot : enemyBots) { bot.render(g2, drawW, drawH); }
+    //for (Bot bot : bots)      { bot.render(g2, drawW, drawH); }
+    //for (Bot bot : enemyBots) { bot.render(g2, drawW, drawH); }
+    botManager.render(g2, drawW, drawH);
     for (Minion m : minionSpawner.getMinions()) {m.render(g2, drawW, drawH); }
 
     if (withBorder) {
@@ -169,11 +176,11 @@ public void render(Graphics2D g2, int width, int height, boolean withBorder) {
         Rectangle playerBox = new Rectangle(px - size/2, py - size/2, size, size);//player HITBOX
         for (Lane lane : lanes) {
             for (Tower t : lane.getAllTowers()) {
-            Rectangle towerBox = t.getHitbox(GlobalAttr.WORLD_WIDTH, GlobalAttr.WORLD_HEIGHT); //TOWER HITBOX
-                if (playerBox.intersects(towerBox)) {
-                return true;
+                if (!t.isActive()) {continue;}
+                Rectangle towerBox = t.getHitbox(GlobalAttr.WORLD_WIDTH, GlobalAttr.WORLD_HEIGHT);
+                if (playerBox.intersects(towerBox)) return true;
             }
-           }
+           
         }
         return false;
     }
@@ -192,22 +199,22 @@ public void render(Graphics2D g2, int width, int height, boolean withBorder) {
             enemies.add(player);
         }
         // bots
-         for (Bot b : bots) { if (b.getTeam() != team && b.isActive()) enemies.add(b); }
-         for (Bot b : enemyBots) { if (b.getTeam() != team && b.isActive()) enemies.add(b); }
+         //for (Bot b : bots) { if (b.getTeam() != team && b.isActive()) enemies.add(b); }
+         //for (Bot b : enemyBots) { if (b.getTeam() != team && b.isActive()) enemies.add(b); }
+         for (Bot b : botManager.getAllBots()) { if (b.getTeam() != team && b.isActive()) enemies.add(b); }
          
          // towers 
          for (Lane lane : lanes) {
             for (Tower t : lane.getAllTowers()) {
-                if (t.getTeam() != team) {
-                enemies.add(t);
+                if (t.getTeam() != team && t.isActive()) enemies.add(t);
             }
         }
         //Base to add later
+          return enemies;
     }
 
-    return enemies;
+  
 }
 
 
 
-}

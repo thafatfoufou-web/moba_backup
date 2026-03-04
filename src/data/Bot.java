@@ -1,22 +1,38 @@
 package data;
 
 import java.awt.*;
+import java.util.List;
 
 import view.GlobalAttr;
 
 public class Bot extends Personnage {
 
-    private double targetX, targetY;
+
+    private  double spawnX ; 
+    private  double spawnY ;
+
     private String name;
 
     private double range = GlobalAttr.BOT_RANGE;
     private double dmg = GlobalAttr.BOT_DAMAGE;
 
-    public Bot(double x, double y, double targetX, double targetY, int team, String name) {
-        super(x, y, GlobalAttr.BOT_MAX_HP, GlobalAttr.BOT_SPEED, team);
+    private double attackCooldown = 1.0;
+    private double attackTimer    = 0;
+    private double respawnTimer   = 15;  //placeholder
+    
+    private List<double[]> waypoints;
+    private int waypointIndex=0;
+    
+    private enum State { MOVING, FIGHTING,RETREATING }
+    private State state = State.MOVING;
+    
 
-        this.targetX = targetX;
-        this.targetY = targetY;
+    public Bot(double x, double y, List<double[]> waypoints , int team, String name) {
+
+        super(x, y, GlobalAttr.BOT_MAX_HP, GlobalAttr.BOT_SPEED, team);
+        this.spawnX = x;
+        this.spawnY = y;
+        this.waypoints = waypoints;
         this.name = name;
         this.maxMana = GlobalAttr.BOT_MAX_MANA;
         this.mana = this.maxMana;
@@ -25,17 +41,29 @@ public class Bot extends Personnage {
     // ======================
     // Movement
     // ======================
-    public void update() {
-        double dx = targetX - getX();
-        double dy = targetY - getY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
+    public void update(double deltaTime,List<Entity> enemies,List<Bot> allBots) {
 
-        if (distance > speed) {
-            setX(getX() + (dx / distance) * speed);
-            setY(getY() + (dy / distance) * speed);
+        // this checks if the bot is dead will change it eventually
+        if (!active) { 
+            respawnTimer -= deltaTime;
+            if(respawnTimer <= 0) {  respawn();  }
+            return;
         }
-    }
 
+        attackTimer -= deltaTime;
+        Entity target = findClosestEnemy(enemies);
+         if (target != null && getDistanceTo(target) <= range) {
+            state = State.FIGHTING;
+
+            if (attackTimer <= 0) {
+                attack(target);
+                 attackTimer = attackCooldown;
+             }  
+        }else {
+                state = State.MOVING;
+                followWaypoints(allBots);
+      }
+    }
  
     // Attack
    
@@ -53,6 +81,9 @@ public class Bot extends Personnage {
 
     @Override
     public void render(Graphics2D g2, int width, int height) {
+
+
+        if (!active) {return;}
 
         int px = (int) (getX() * width);
         int py = (int) (getY() * height);
@@ -81,5 +112,55 @@ public class Bot extends Personnage {
         if (maxMana > 0) {
             drawManaBar(g2, px, py, size, 15);
         }
+        //if (state == State.FIGHTING) {} wanna add a visual angry icon when fighting
+    }
+
+    private Entity findClosestEnemy(List<Entity> enemies) {
+        Entity closest = null;
+        double closestDist = Double.MAX_VALUE;
+        for (Entity e : enemies) {
+        if (!e.isActive()) continue;
+        double d = getDistanceTo(e);
+        if (d < closestDist) {
+            closestDist = d;
+            closest = e; }}
+        return closest;
+    }
+    
+    private void followWaypoints(List<Bot> allBots) {
+        if (waypointIndex >= waypoints.size()) {return;}
+        double[] wp = waypoints.get(waypointIndex);
+
+        for (Bot other : allBots) {
+            if (other == this || !other.isActive()) continue;
+            double dx = other.getX() - wp[0];
+            double dy = other.getY() - wp[1];
+            double dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 0.03) return; //wait its ocuupied
+        }
+
+        double dx = wp[0] - x;
+        double dy = wp[1] - y;
+        double dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 0.015) { // basically epsilon cus it may not reach the exact point P2 = polygon(65,66,67,68)
+                            //P1 = polygon(42,43,44,45)
+                            //p1 = (6,1.15)
+            waypointIndex++;
+        } else {
+            x += (dx / dist) * speed;
+            y += (dy / dist) * speed;
+        }
+  }
+
+    @Override
+    public void respawn() {
+        x = spawnX;  
+        y = spawnY;  
+        hp = getMaxHp();
+        mana = maxMana;
+        active = true;
+        state = State.MOVING;
+        waypointIndex = 0;
     }
 }

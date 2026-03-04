@@ -70,14 +70,14 @@ public class MinionSpawner {
         return wp;
     }
 
-    public void update(double deltaTime, Player player) {
+    public void update(double deltaTime, Player player) { //to change the player to entity
         timer += deltaTime;
 
         if (timer >= SPAWN_INTERVAL) {
             timer = 0;
             spawnWave();
         }   
-        // remove dead minions
+        // removes dead minions
         minions.removeIf(m -> !m.isActive());
     }
 

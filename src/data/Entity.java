@@ -51,11 +51,15 @@ public abstract class Entity {
     public void heal(double amount) {
         hp += amount;
         if (hp > maxHp) hp = maxHp;
+        
     }
 
     public void takeDamage(double dmg) {
         hp -= dmg;
-        if (hp < 0) hp = 0;
+        if (hp <= 0) {
+            hp = 0;
+            active = false;
+    }
     }
 
 
@@ -76,9 +80,7 @@ public abstract class Entity {
         return active;
     }
 
-    public void attack(Entity target) {
-    //TODO    
-    }
+    public abstract void attack(Entity target);
 
 
 
