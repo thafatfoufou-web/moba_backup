@@ -2,7 +2,6 @@ package data;
 
 import java.awt.*;
 
-import engine.Entity;
 import view.GlobalAttr;
 
 public class Bot extends Personnage {
@@ -19,8 +18,6 @@ public class Bot extends Personnage {
         this.targetX = targetX;
         this.targetY = targetY;
         this.name = name;
-
-        // Utilise les variables héritées de Entity
         this.maxMana = GlobalAttr.BOT_MAX_MANA;
         this.mana = this.maxMana;
     }
@@ -39,21 +36,21 @@ public class Bot extends Personnage {
         }
     }
 
-    // ======================
+ 
     // Attack
-    // ======================
+   
     @Override
     public void attack(Entity target) {
         double dist = getDistanceTo(target);
 
-        if (dist < range && !target.isDead()) {
+        if (dist < range && target.isActive()) {
             target.takeDamage(dmg);
         }
     }
 
-    // ======================
+
     // Render
-    // ======================
+
     @Override
     public void render(Graphics2D g2, int width, int height) {
 
@@ -62,7 +59,7 @@ public class Bot extends Personnage {
         int size = width / 40;
 
         // Couleur selon team
-        if (team == 0) {
+        if (this.team == 0) {
             g2.setColor(new Color(0, 150, 255));
         } else {
             g2.setColor(new Color(255, 0, 150));
@@ -77,10 +74,10 @@ public class Bot extends Personnage {
         g2.setFont(new Font("Arial", Font.BOLD, 12));
         g2.drawString(name, px - 15, py - size / 2 - 10);
 
-        // Barre de vie (héritée)
+        // Barre de vie 
         drawHealthBar(g2, px, py, size, 8);
 
-        // Barre de mana (héritée)
+        // Barre de mana 
         if (maxMana > 0) {
             drawManaBar(g2, px, py, size, 15);
         }

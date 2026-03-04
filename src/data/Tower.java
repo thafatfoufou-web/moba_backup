@@ -2,7 +2,6 @@ package data;
 
 import java.awt.*;
 
-import engine.Entity;
 import view.GlobalAttr;
 
 public class Tower extends Entity {

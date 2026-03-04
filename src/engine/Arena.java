@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.Bot;
+import data.Entity;
 import data.Fountain;
 import data.Lane;
 import data.Minion;
@@ -43,8 +44,8 @@ public class Arena {
         enemyBots.add(new Bot(0.85, 0.20, 0.55, 0.5, 1, "ENEMY_Bot4"));
         enemyBots.add(new Bot(0.95, 0.15,0.94, 0.85, 1, "ENEMY_Bot5"));
 
-        playerFountain = new Fountain(0.05, 0.95);
-        Enemy_Fountain = new Fountain(0.95, 0.05);
+        playerFountain = new Fountain(0.05, 0.95,0);
+        Enemy_Fountain = new Fountain(0.95, 0.05,1);
 
         camera = new Camera(800, 600);
         int vW = (int)(GlobalAttr.WORLD_WIDTH  * GlobalAttr.CAMERA_ZOOM) + GlobalAttr.MAP_BORDER * 2;

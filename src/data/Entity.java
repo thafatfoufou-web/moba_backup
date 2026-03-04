@@ -1,4 +1,4 @@
-package engine;
+package data;
 
 import java.awt.*;
 
@@ -7,6 +7,21 @@ import java.awt.*;
  */
 
 public abstract class Entity {
+
+    protected double x, y;
+    protected double hp;
+    protected double maxHp;
+    protected boolean active = true;
+    
+    
+    public Entity(double x, double y, double maxHp) {
+        this.x = x;
+        this.y = y;
+        this.maxHp = maxHp;
+        this.hp = maxHp;
+    }
+   
+
     public double getHp() {
 		return hp;
 	}
@@ -30,20 +45,8 @@ public abstract class Entity {
 		this.y = y;
 	}
 
-	protected double x, y;
-    protected double hp;
-    protected double maxHp;
-    protected Color color;
-    protected boolean active = true;
-    protected double mana;
-    protected double maxMana;
 
-    public Entity(double x, double y, double maxHp) {
-        this.x = x;
-        this.y = y;
-        this.maxHp = maxHp;
-        this.hp = maxHp;
-    }
+
 
     public void heal(double amount) {
         hp += amount;
@@ -55,22 +58,13 @@ public abstract class Entity {
         if (hp < 0) hp = 0;
     }
 
-    public boolean isDead() {
-        return hp == 0;
-    }
 
     public double getX() { return x; }
     public double getY() { return y; }
 
     public abstract void render(Graphics2D g2, int width, int height);
 
-	public Color getColor() {
-		return color;
-	}
 
-	public void setColor(Color color) {
-		this.color = color;
-	}
 
     public double getDistanceTo(Entity other) {
         double dx = this.x - other.x;
@@ -86,15 +80,7 @@ public abstract class Entity {
     //TODO    
     }
 
-    protected void drawManaBar(Graphics2D g2, int px, int py, int size, int yOffset) {
-        g2.setColor(Color.GRAY);
-        g2.fillRect(px - size/2, py - size - yOffset, size, 4);
-        g2.setColor(Color.CYAN);
-        int manaWidth = (int)((mana / maxMana) * size);
-        g2.fillRect(px - size/2, py - size - yOffset, manaWidth, 4);
-        g2.setColor(Color.BLACK);
-        g2.drawRect(px - size/2, py - size - yOffset, size, 4);
-    }
+
 
     protected void drawHealthBar(Graphics2D g2, int px, int py, int size, int yOffset) {
         g2.setColor(Color.GRAY);

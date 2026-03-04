@@ -3,7 +3,6 @@ package data;
 import java.awt.*;
 import java.awt.Graphics2D;
 
-import engine.Entity;
 import view.GlobalAttr;
 
 public class Base extends Entity {

@@ -3,7 +3,6 @@ package data;
 import java.awt.*;
 import java.util.List;
 
-import engine.Entity;
 import view.GlobalAttr;
 
 public class Minion extends Entity {
