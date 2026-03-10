@@ -20,10 +20,10 @@ public class Bot extends Personnage {
     private double attackTimer    = 0;
     private double respawnTimer   = 15;  //placeholder
     
-    private List<double[]> waypoints;
+    private List<double[]> waypoints; //path
     private int waypointIndex=0;
     
-    private enum State { MOVING, FIGHTING,RETREATING }
+    private enum State { MOVING, FIGHTING,RETREATING } //for animations
     private State state = State.MOVING;
     
 
@@ -38,9 +38,7 @@ public class Bot extends Personnage {
         this.mana = this.maxMana;
     }
 
-    // ======================
     // Movement
-    // ======================
     public void update(double deltaTime,List<Entity> enemies,List<Bot> allBots) {
 
         // this checks if the bot is dead will change it eventually
@@ -53,7 +51,7 @@ public class Bot extends Personnage {
         attackTimer -= deltaTime;
         Entity target = findClosestEnemy(enemies);
          if (target != null && getDistanceTo(target) <= range) {
-            state = State.FIGHTING;
+            state = State.FIGHTING; //will need for animation
 
             if (attackTimer <= 0) {
                 attack(target);
@@ -65,8 +63,6 @@ public class Bot extends Personnage {
       }
     }
  
-    // Attack
-   
     @Override
     public void attack(Entity target) {
         double dist = getDistanceTo(target);
@@ -77,7 +73,6 @@ public class Bot extends Personnage {
     }
 
 
-    // Render
 
     @Override
     public void render(Graphics2D g2, int width, int height) {
@@ -89,30 +84,34 @@ public class Bot extends Personnage {
         int py = (int) (getY() * height);
         int size = width / 40;
 
-        // Couleur selon team
+        //team color
         if (this.team == 0) {
             g2.setColor(new Color(0, 150, 255));
         } else {
             g2.setColor(new Color(255, 0, 150));
         }
 
-        // Dessin du bot
+        // BOT but place holder will be using the hero render
         g2.fillOval(px - size / 2, py - size / 2, size, size);
         g2.setColor(Color.BLACK);
         g2.drawOval(px - size / 2, py - size / 2, size, size);
 
-        // Nom
+        // Nom Same
         g2.setFont(new Font("Arial", Font.BOLD, 12));
         g2.drawString(name, px - 15, py - size / 2 - 10);
 
-        // Barre de vie 
+        // Hp
         drawHealthBar(g2, px, py, size, 8);
 
-        // Barre de mana 
+        // mana 
         if (maxMana > 0) {
             drawManaBar(g2, px, py, size, 15);
         }
         //if (state == State.FIGHTING) {} wanna add a visual angry icon when fighting
+        //P2 = polygon(65,66,67,68)
+                //P1 = polygon(42,43,44,45)
+                //p1 = (6,1.15)
+waypointIndex++;
     }
 
     private Entity findClosestEnemy(List<Entity> enemies) {
@@ -136,17 +135,14 @@ public class Bot extends Personnage {
             double dx = other.getX() - wp[0];
             double dy = other.getY() - wp[1];
             double dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 0.03) return; //wait its ocuupied
+            if (dist < 0.03) return; //wait its ocuupied not working rn 
         }
 
         double dx = wp[0] - x;
         double dy = wp[1] - y;
         double dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 0.015) { // basically epsilon cus it may not reach the exact point P2 = polygon(65,66,67,68)
-                            //P1 = polygon(42,43,44,45)
-                            //p1 = (6,1.15)
-            waypointIndex++;
+        if (dist < 0.015) { // basically epsilon cus it may not reach the exact point 
         } else {
             x += (dx / dist) * speed;
             y += (dy / dist) * speed;

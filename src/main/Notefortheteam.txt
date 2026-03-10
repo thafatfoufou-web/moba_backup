@@ -12,14 +12,14 @@ TO DO:
 -make bots able to kill Entite
 -die and respawn for bots
 -minon move tp, fix it
-2/
+2/ LOOT
 -Add gold and xp + level to Personnage
 -Add a grantRewards(int gold, int xp) method to Entite so anything can drop loot on death
 3/
 -When xp hits a threshold, call levelUp() → bumps level, scales stats
 4/
 -Implement Hero properly
--build 1 complete hero first as a template
+-build complete hero first as a template
 5/
 -Implement Sort
 6/

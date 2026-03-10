@@ -46,9 +46,6 @@ public class Fountain extends Entity {
         g2.fillRect(px - fSize/2, py - fSize/2, fSize, fSize);
     }
 
-    public Color lowerTransperacy(Color color, int trans){
-        return (new Color(color.getRed(),color.getGreen(),color.getBlue(),trans) );
-        }
 
     public void attack(Entity target){  
         double dx = target.getX() - x;
